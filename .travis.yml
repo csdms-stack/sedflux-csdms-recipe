@@ -1,0 +1,18 @@
+language: generic
+os:
+- linux
+- osx
+env:
+  global:
+  - THIS_PACKAGE="csdms-sedflux"
+  - TRAVIS_PYTHON_VERSION="2.7"
+  - NUMPY_VERSION="1.9"
+  - secure: iiSFvCg/Rg5li/4NgJTFjLg10sYbJAQfUqJ9aYPZ5qtOLuJ9+3hfrnv5oZhCNDf9rh5s2GthwB2JVcMWaWT5mZTtyINDR1eNOw8eyHjfysKDt1q8R99ZycUF9tCzR9vubyudy2LfCApMBho3askAgDXvtmwb5L2hpIgcwcG1yJty833sb9VlP9XWzq13n9KQyBGGQHtIygfPMARcd6QqbCw+jrVYKnJlQA/4Ra8zsCCczD2maEIN7cD0NccuXShpBmH19KSgAHktC35SRb2tB2IXEL9vlBBkZPl4ZVX2i0XmroT4adGlVN3exQVvXbf6mlUWtYVx4RPdzYfzOwpFj34bJvuMhwplnV7joGz3FPYPByihK46O1n4DFls8VNK9CyDVPkkzqbUBCaPEliGvXaKcMH3uj/v6+TXEDMC3pdT0EapYrBY523eaSABfEYDh/CVL7HGOjN9YR1ttbXjhKUB9xlIg2mQy5qdZY6C7WiMFZNZqK/4vchQiPBwWOIFeUYvNzg1FPuJ5+DiTxepoM+0ZDYdE+n/AS9dZeW0YkJSxSnwh7JJMyCjTyajYm8dBV0hHYQhcfIx3QNNN30F/cs46NHYXenGaWKlgc0CEEUfBUynv3Ykg7efndwzqjVGoqfPbPuDFLcwSoTW7hu7wXQNfcvDntpSZuOX95rwZD5E=
+sudo: false
+install:
+- bash ci/travis/install_python.sh $HOME/miniconda
+- export PATH="$HOME/miniconda/bin:$PATH"
+script:
+- conda build recipe -c conda-forge -c csdms/channel/dev -c csdms
+after_success:
+- bash ci/travis/deploy_to_anaconda.sh $THIS_PACKAGE

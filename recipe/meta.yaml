@@ -1,0 +1,36 @@
+{% set name = "csdms-sedflux" %}
+{% set version = "3.0" %}
+{% set build_string = environ.get('GIT_BUILD_STR', '') %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/mcflugen/{{ name }}
+  git_branch: add-function-pointers
+
+requirements:
+  build:
+    - bmi-babel
+    - sedflux
+  run:
+    - bmi-babel
+    - sedflux
+
+test:
+  requires:
+    - pymt
+
+about:
+  home: https://github.com/mcflugen/sedflux
+  license: MIT
+  summary: A stratigraphic basin-filling model
+  description: |
+    Sedflux-2.0 is the newest version of the Sedflux basin-filling
+    model. Sedflux-2.0 provides a framework within which individual
+    process-response models of disparate time and space resolutions
+    communicate with one another to deliver multi grain sized
+    sediment load across a continental margin.
+  doc_url: http://sedflux.readthedocs.io/
+  dev_url: http://github.com/mcflugen/sedflux
