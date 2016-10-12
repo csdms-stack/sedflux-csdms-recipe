@@ -1,3 +1,3 @@
 #! /bin/bash
 
-bmi babelize . --prefix=$PREFIX
+bmi babelize ./ew/sedflux/.bmi-sedgrid --prefix=$PREFIX

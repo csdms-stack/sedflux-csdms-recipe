@@ -4,7 +4,7 @@ import os
 os.mkdir('_testing')
 os.chdir('_testing')
 
-from pymt.components import Sedflux as Model
+from pymt.components import Sedgrid as Model
 
 model = Model()
 

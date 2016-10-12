@@ -1,5 +1,5 @@
 [![Build
-Status](https://travis-ci.org/csdms/sedflux-csdms-recipe.svg?branch=master)](https://travis-ci.org/csdms-stack/sedflux-csdms-recipe)
+Status](https://travis-ci.org/csdms-stack/sedflux-sedgrid-csdms-recipe.svg?branch=master)](https://travis-ci.org/csdms-stack/sedflux-sedgrid-csdms-recipe)
 
-# sedflux-csdms-recipe
-Conda recipe for babelized sedflux
+# sedflux-sedgrid-csdms-recipe
+Conda recipe for babelized sedflux-sedgrid

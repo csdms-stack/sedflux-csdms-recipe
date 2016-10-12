@@ -4,15 +4,23 @@ os:
 - osx
 env:
   global:
-  - THIS_PACKAGE="csdms-sedflux"
+  - THIS_PACKAGE="csdms-sedflux-sedgrid"
   - TRAVIS_PYTHON_VERSION="2.7"
   - NUMPY_VERSION="1.9"
-  - secure: iiSFvCg/Rg5li/4NgJTFjLg10sYbJAQfUqJ9aYPZ5qtOLuJ9+3hfrnv5oZhCNDf9rh5s2GthwB2JVcMWaWT5mZTtyINDR1eNOw8eyHjfysKDt1q8R99ZycUF9tCzR9vubyudy2LfCApMBho3askAgDXvtmwb5L2hpIgcwcG1yJty833sb9VlP9XWzq13n9KQyBGGQHtIygfPMARcd6QqbCw+jrVYKnJlQA/4Ra8zsCCczD2maEIN7cD0NccuXShpBmH19KSgAHktC35SRb2tB2IXEL9vlBBkZPl4ZVX2i0XmroT4adGlVN3exQVvXbf6mlUWtYVx4RPdzYfzOwpFj34bJvuMhwplnV7joGz3FPYPByihK46O1n4DFls8VNK9CyDVPkkzqbUBCaPEliGvXaKcMH3uj/v6+TXEDMC3pdT0EapYrBY523eaSABfEYDh/CVL7HGOjN9YR1ttbXjhKUB9xlIg2mQy5qdZY6C7WiMFZNZqK/4vchQiPBwWOIFeUYvNzg1FPuJ5+DiTxepoM+0ZDYdE+n/AS9dZeW0YkJSxSnwh7JJMyCjTyajYm8dBV0hHYQhcfIx3QNNN30F/cs46NHYXenGaWKlgc0CEEUfBUynv3Ykg7efndwzqjVGoqfPbPuDFLcwSoTW7hu7wXQNfcvDntpSZuOX95rwZD5E=
+  - secure: 6m5Lp0NF/ih8By21zj8XuuWdDcdFTbItacfXKs95EYj23oeEdquekffwWAzd46+h5pcTD8LdobmGaGGw5a8GYT6HNY6G5+anTdtvjVVs9UslpwimR7WEoQGXTtZwo+XwZ5kSHwzvg+EmDWsKSLp8XhPBkj/p4Ag0ebd24XTHPud0V3Kw/w3uC0opEOaYMdef1Dtf0tZjjSJhFPzdyBq5mrKxBLzGANPWGvvVZSdLUigaPPn+vF5wndrcMdguyUA9IFHP/NwA8mAigsvX+zrgGVUF+0neRPXQnCLd8Ki0PApDBV5EP8AdCzZp9vDdAZiXOy/erdzrnFVttxgxEYbjItazGDcQKXCn3QVcGyls3pLcjfzZcE0S9MafMdwrbD+yj8EQSU3PClvOOcTXc+n74W1LNHZyROi7lJ1deplYqlkOY9kYFt8Lw86fWfHYuzylkDvmVd4+/IIc9ALZ/IqSz/2nuF7+GZmF8MEX8bKnkV4jK38Pr+78+sSBPTacRghGgwGGr54Ibvi9/MJYwznzaHTEJujPfzRmu7tKtzGVRTQTuAe8DiHu58pL6JGZb6yvt2a0wwtLYug5OWgn/FvqUacYaujfgn9DGzownEsX6TNRkAqzWu0AAZtaavum4jyyJh6POmzwRX9pikkfJ9QVAYKRT/Tpq01hTHNTQUecTUk=
 sudo: false
+before_install:
+- |
+  if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+    brew remove --force $(brew list)
+    brew cleanup -s
+    rm -rf $(brew --cache)
+  fi
 install:
 - bash ci/travis/install_python.sh $HOME/miniconda
 - export PATH="$HOME/miniconda/bin:$PATH"
 script:
-- conda build recipe -c conda-forge -c csdms/channel/dev -c csdms
+- conda build recipe -c conda-forge -c csdms-stack
 after_success:
+- if [[ $TRAVIS_BRANCH == "master" ]]; then export CHANNEL="main"; fi
 - bash ci/travis/deploy_to_anaconda.sh $THIS_PACKAGE
