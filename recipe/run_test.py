@@ -4,6 +4,11 @@ import os
 os.mkdir('_testing')
 os.chdir('_testing')
 
+from pymt.babel import setup_babel_environ
+setup_babel_environ()
+for k, v in os.environ.items():
+    print('{k}: {v}'.format(k=k, v=v))
+
 print('import csdms')
 import csdms
 
