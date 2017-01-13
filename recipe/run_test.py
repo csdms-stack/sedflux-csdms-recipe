@@ -4,6 +4,10 @@ import os
 os.mkdir('_testing')
 os.chdir('_testing')
 
+import csdms
+import csdms.Sedgrid
+from csdms.Sedgrid import Sedgrid
+
 from pymt.components import Sedgrid as Model
 
 model = Model()
